@@ -14,6 +14,8 @@ class ConsulBaseAction(Action):
         host = self.config['host']
         port = self.config['port']
         token = self.config['token']
+        scheme = self.config['scheme']
+        verify = self.config['verify']
 
-        client = consul.Consul(host, port, token)
+        client = consul.Consul(host, port, token, scheme=scheme, verify=verify)
         return client
