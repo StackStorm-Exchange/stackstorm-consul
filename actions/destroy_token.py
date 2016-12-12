@@ -1,5 +1,6 @@
 from lib import action
 
+
 class ConsulAclDestroyAction(action.ConsulBaseAction):
     def run(self, acl_id):
 
