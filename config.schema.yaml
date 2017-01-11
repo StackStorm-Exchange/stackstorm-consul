@@ -1,6 +1,6 @@
 ---
   host:
-    description: "Consul server IP/name - default 127.0.0.1"
+    description: "Consul server IP/name.  Default 127.0.0.1"
     type: "string"
     secret: false
     required: true
@@ -16,3 +16,13 @@
     type: "string"
     secret: true
     required: true
+  scheme:
+    description: "Consul scheme to use. Default http"
+    type: "string"
+    required: false
+    default: "http"
+  verify:
+    description: "Verify the SSL certificate for HTTPS requests. Default false"
+    type: "boolean"
+    required: false
+    default: false
