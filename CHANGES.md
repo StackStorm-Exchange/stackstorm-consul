@@ -1,5 +1,10 @@
 # Change Log
 
+## 0.4.0
+
+ - Added consul.health_service action to query a services status and group the result by hostname
+ - Added consul.health_check action to query a services status and group the result by check
+
 ## 0.3.0
 
  - Added consul.list action to get a list of Keys from consul under a given <root> key
