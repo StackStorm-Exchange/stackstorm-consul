@@ -1,0 +1,18 @@
+name: session_destroy
+pack: consul
+runner_type: run-python
+description: "Destroy an existing session."
+enabled: true
+entry_point: "session_destroy.py"
+parameters:
+    session_id:
+        type: string
+        description: "The session id to be destoryed."
+        required: true
+        position: 0
+    dc:
+        type: integer
+        description: "dc is the datacenter that this agent will communicate with."
+        required: false
+        position: 1
+

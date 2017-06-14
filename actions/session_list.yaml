@@ -1,0 +1,32 @@
+name: session_list
+pack: consul
+runner_type: run-python
+description: "Returns a tuple of (index, sessions) of all active sessions in the datacenter."
+enabled: true
+entry_point: "session_list.py"
+parameters:
+    index:
+        type: array
+        description: "The current Consul index."
+        required: false
+        position: 0
+    wait:
+        type: string
+        description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
+        default: "15s"
+        required: false
+        position: 1
+    consistency:
+        type: string
+        enum:
+          - default
+          - consistent
+          - stale
+        description: "The consistency mode to use reads."
+        required: false
+        position: 2
+    dc:
+        type: string
+        description: "The datacenter that this agent will communicate with."
+        required: false
+        position: 3

@@ -1,0 +1,49 @@
+name: kv_get
+runner_type: run-python
+description: "Get value from Consul key/value store"
+enabled: true
+entry_point: "kv_get.py"
+parameters:
+    key:
+        type: string
+        description: "Key to retrieve from Consul"
+        required: true
+    index:
+        type: integer
+        description: "The current Consul index, suitable to wait for changes since this query was last run."
+        required: false
+    recurse:
+        type: boolean
+        description: "Do a recursive retrieval?"
+        required: false
+        default: false
+    wait:
+        type: string
+        description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
+        required: false
+    token:
+        type: string
+        description: "An optional ACL token to apply to this request."
+        required: false
+    consistency:
+        type: string
+        description: "Can be either default, consistent or stale"
+        required: false
+    keys:
+        type: boolean
+        description: "Return a list of keys only"
+        required: false
+        default: false
+    separator:
+        type: string
+        description: "Can be used with keys to list keys only up to a given separator character."
+        required: false
+    dc:
+        type: string
+        description: "Optionally the datacenter to communicate with."
+        required: false
+    from_json:
+        type: boolean
+        description: "Deserialise retrieved keys as JSON."
+        required: false
+        default: false

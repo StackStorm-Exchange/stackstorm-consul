@@ -1,8 +1,8 @@
-name: health_service
+name: catalog_services
 runner_type: run-python
-description: "Returns the nodes and health info of a service"
+description: "Returns all services known about in the *dc* datacenter."
 enabled: true
-entry_point: "health_service.py"
+entry_point: "catalog_services.py"
 parameters:
     service:
         type: string
@@ -16,21 +16,25 @@ parameters:
         type: string
         description: "Maximum duration to wait (e.g. '10s') to retrieve a given index."
         required: false
-    passing:
-        type: string
-        description: "Set to True will filter results to only those nodes whose checks are currently passing."
-        required: false
     tag:
         type: string
-        description: "Filter the results by tag."
-        required: false
-    dc:
-        type: string
-        description: "The datacenter of the node and defaults to this agents datacenter."
+        description: "Optional tag to query"
         required: false
     near:
         type: string
         description: "A node name to sort the resulting list in ascending order based on the estimated round trip time from that node."
+        required: false
+    consistency:
+        type: string
+        description: "Consul supports 3 different consistency modes for reads. Read Consul's documentation for details."
+        enum:
+        - default
+        - consistent
+        - stale
+        required: false
+    dc:
+        type: string
+        description: "The datacenter that this agent will communicate with."
         required: false
     token:
         type: string

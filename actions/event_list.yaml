@@ -1,0 +1,19 @@
+name: event_list
+runner_type: run-python
+description: "Fetch events from Consul agent's buffer."
+enabled: true
+entry_point: "event_list.py"
+parameters:
+    name:
+        type: string
+        description: "The type of events to list. An empty string, lists all available."
+        required: true
+        default: ""
+    index:
+        type: integer
+        description: "The current event Consul index"
+        required: false
+    wait:
+        type: string
+        description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
+        required: false

@@ -1,7 +1,9 @@
+from st2common import log as logging
 from st2actions.runners.pythonrunner import Action
 
 # http://python-consul.readthedocs.org/en/latest/#
 import consul
+import json
 
 
 class ConsulBaseAction(Action):
@@ -9,13 +11,33 @@ class ConsulBaseAction(Action):
     def __init__(self, config):
         super(ConsulBaseAction, self).__init__(config)
         self.consul = self._get_client()
+        self.logger = logging.getLogger(__name__)
 
     def _get_client(self):
-        host = self.config['host']
-        port = self.config['port']
-        token = self.config['token']
-        scheme = self.config['scheme']
-        verify = self.config['verify']
+        dc = self.config.get('dc')
+        host = self.config.get('host')
+        port = self.config.get('port')
+        token = self.config.get('token')
+        scheme = self.config.get('scheme')
+        verify = self.config.get('verify') or True
+        consistency = self.config.get('consistency') or 'default'
 
-        client = consul.Consul(host, port, token, scheme=scheme, verify=verify)
+        client = consul.Consul(host, port, token, scheme, consistency, dc, verify)
         return client
+
+    def to_json(self, value):
+        """
+        Unescape StackStorm string and push as a json serialised object into consul.
+        """
+        return json.dumps(json.loads(value.decode('string_escape')))
+
+    def from_json(self, value):
+        """
+        A helper function to return convert key/value store values into Python native objects
+        to be returned to StackStorm's actionrunner.
+        """
+        try:
+            value = json.loads(value)
+        except ValueError as ignore_exception:
+            pass
+        return value

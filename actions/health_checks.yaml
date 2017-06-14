@@ -1,8 +1,8 @@
-name: health_service
+name: health_checks
 runner_type: run-python
-description: "Returns the nodes and health info of a service"
+description: "Returns the checks of a service"
 enabled: true
-entry_point: "health_service.py"
+entry_point: "health_checks.py"
 parameters:
     service:
         type: string
@@ -15,14 +15,6 @@ parameters:
     wait:
         type: string
         description: "Maximum duration to wait (e.g. '10s') to retrieve a given index."
-        required: false
-    passing:
-        type: string
-        description: "Set to True will filter results to only those nodes whose checks are currently passing."
-        required: false
-    tag:
-        type: string
-        description: "Filter the results by tag."
         required: false
     dc:
         type: string

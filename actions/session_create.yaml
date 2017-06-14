@@ -1,0 +1,48 @@
+name: session_create
+pack: consul
+runner_type: run-python
+description: "Create a new session."
+enabled: true
+entry_point: "session_create.py"
+parameters:
+    name:
+        type: string
+        description: "An optional human readable name for the session."
+        required: false
+        position: 0
+    node:
+        type: string
+        description: "The node to create the session on"
+        required: false
+        position: 1
+    checks:
+        type: array
+        description: "A list of checks to associate with the session."
+        default: ["serfHealth"]
+        required: false
+        position: 2
+    lock_delay:
+        type: integer
+        description: "An integer of seconds."
+        default: 15
+        required: false
+        position: 3
+    behavior:
+        type: string
+        enum:
+          - release
+          - delete
+        description: "This controls the behavior when a session is invalidated."
+        required: false
+        position: 4
+    ttl:
+        type: integer
+        description: "Invalidate the session if it is not renewed before the TTL expires."
+        required: false
+        position: 5
+    dc:
+        type: string
+        description: "The datacenter that this agent will communicate with."
+        required: false
+        position: 6
+
