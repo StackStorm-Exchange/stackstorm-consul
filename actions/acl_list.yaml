@@ -1,6 +1,6 @@
-name: list_tokens
+name: acl_list
 pack: consul
 runner_type: run-python
 description: "List all acl tokens"
 enabled: true
-entry_point: "list_tokens.py"
+entry_point: "acl_list.py"
