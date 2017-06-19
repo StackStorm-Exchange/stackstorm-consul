@@ -33,7 +33,7 @@ class ConsulBaseAction(Action):
 
     def from_json(self, value):
         """
-        A helper function to return convert key/value store values into Python native objects
+        Convert key/value store JSON strings into Python native objects
         to be returned to StackStorm's actionrunner.
         """
         try:
