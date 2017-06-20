@@ -1,5 +1,5 @@
 name: put
-runner_type: run-python
+runner_type: python-script
 description: "Put value in Consul server"
 enabled: true
 entry_point: "put.py"

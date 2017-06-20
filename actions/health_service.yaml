@@ -1,5 +1,5 @@
 name: health_service
-runner_type: run-python
+runner_type: python-script
 description: "Query health status of a service in consul"
 enabled: true
 entry_point: "health_service.py"

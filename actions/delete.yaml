@@ -1,6 +1,6 @@
 name: delete
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Delete value from Consul server"
 enabled: true
 entry_point: "delete.py"
