@@ -1,5 +1,5 @@
 name: parse_nodes
-runner_type: run-python
+runner_type: python-script
 description: "Helper function to extract hosts from a consul response to be used with StackStorm workflows"
 enabled: true
 entry_point: "parse_nodes"

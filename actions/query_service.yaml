@@ -1,5 +1,5 @@
 name: query_service
-runner_type: run-python
+runner_type: python-script
 description: "Query details about a service in consul"
 enabled: true
 entry_point: "query_service.py"

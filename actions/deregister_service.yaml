@@ -1,5 +1,5 @@
 name: deregister_service
-runner_type: run-python
+runner_type: python-script
 description: "De-Register an external service in Consul"
 enabled: true
 entry_point: "deregister_service.py"

@@ -1,5 +1,5 @@
 name: register_service
-runner_type: run-python
+runner_type: python-script
 description: "Register an external service in Consul"
 enabled: true
 entry_point: "register_service.py"
