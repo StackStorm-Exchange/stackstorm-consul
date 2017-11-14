@@ -1,6 +1,6 @@
 name: acl_create
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Create an acl token"
 enabled: true
 entry_point: "acl_create.py"

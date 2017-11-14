@@ -1,6 +1,6 @@
 name: acl_destroy
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Destroy an acl token"
 enabled: true
 entry_point: "acl_destroy.py"

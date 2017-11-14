@@ -1,5 +1,5 @@
 name: catalog_register
-runner_type: run-python
+runner_type: python-script
 description: "Register an external service in Consul"
 enabled: true
 entry_point: "catalog_register.py"
