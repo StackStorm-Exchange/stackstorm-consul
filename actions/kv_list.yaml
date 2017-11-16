@@ -1,4 +1,4 @@
-name: list
+name: kv_list
 runner_type: python-script
 description: "List values from Consul server"
 enabled: true

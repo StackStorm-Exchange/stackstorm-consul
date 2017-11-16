@@ -1,6 +1,6 @@
 name: session_list
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Returns a tuple of (index, sessions) of all active sessions in the datacenter."
 enabled: true
 entry_point: "session_list.py"

@@ -10,10 +10,10 @@ class ConsulHealthChecksAction(action.ConsulBaseAction):
             near=None,
             token=None):
 
-        index, service = self.consul.health.checks(service,
-                                                   index=index,
-                                                   wait=wait,
-                                                   dc=dc,
-                                                   near=near,
-                                                   token=token)
-        return service
+        return (True, self.consul.health.checks(
+            service,
+            index=index,
+            wait=wait,
+            dc=dc,
+            near=near,
+            token=token))

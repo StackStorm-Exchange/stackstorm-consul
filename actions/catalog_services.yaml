@@ -1,28 +1,16 @@
 name: catalog_services
-runner_type: run-python
+runner_type: python-script
 description: "Returns all services known about in the *dc* datacenter."
 enabled: true
 entry_point: "catalog_services.py"
 parameters:
-    service:
-        type: string
-        description: "Name of the service to query in Consul."
-        required: true
     index:
         type: integer
-        description: "The current Consul index. Useful to check for changes since last query was run."
+        description: "The current Consul index. Used to check for changes since last query was run."
         required: false
     wait:
         type: string
         description: "Maximum duration to wait (e.g. '10s') to retrieve a given index."
-        required: false
-    tag:
-        type: string
-        description: "Optional tag to query"
-        required: false
-    near:
-        type: string
-        description: "A node name to sort the resulting list in ascending order based on the estimated round trip time from that node."
         required: false
     consistency:
         type: string

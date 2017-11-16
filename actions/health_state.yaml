@@ -1,13 +1,20 @@
 name: health_state
-runner_type: run-python
+runner_type: python-script
 description: "Returns the checks in a given state"
 enabled: true
 entry_point: "health_state.py"
 parameters:
     name:
-        type: string
-        description: "Name of the supported state (any, unknown, passing, warning, or critical)."
+        description: "Name of the supported state (any, unknown, passing, warning, critical)."
         required: true
+        type: string
+        enum:
+          - any
+          - unknown
+          - passing
+          - warning
+          - critical
+        default: any
     index:
         type: integer
         description: "The current Consul index. Useful to check for changes since last query was run."

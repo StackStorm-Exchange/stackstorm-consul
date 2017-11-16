@@ -1,5 +1,5 @@
 name: health_checks
-runner_type: run-python
+runner_type: python-script
 description: "Returns the checks of a service"
 enabled: true
 entry_point: "health_checks.py"

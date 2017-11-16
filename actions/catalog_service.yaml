@@ -1,12 +1,12 @@
-name: catalog_node
+name: catalog_service
 runner_type: python-script
-description: "Returns all services provided by *node*."
+description: "Returns the nodes providing *service* in the *dc* datacenter."
 enabled: true
-entry_point: "catalog_node.py"
+entry_point: "catalog_service.py"
 parameters:
-    node:
+    service:
         type: string
-        description: "Node to query in Consul"
+        description: "The service to query for nodes."
         required: true
     index:
         type: string
@@ -16,6 +16,10 @@ parameters:
         type: string
         description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
         required: false
+    tag:
+        type: string
+        description: "The list of nodes returned will be filtered by that tag"
+        required: false
     consistency:
         type: string
         description: "Can be either 'default', 'consistent' or 'stale'."
@@ -23,6 +27,10 @@ parameters:
     dc:
         type: string
         description: "The datacenter to query for nodes."
+        required: false
+    near:
+        type: string
+        description: "A node name to sort the resulting list in ascending order based on the estimated round trip time from that node."
         required: false
     token:
         type: string

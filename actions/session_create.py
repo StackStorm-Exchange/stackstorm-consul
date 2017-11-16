@@ -11,11 +11,11 @@ class ConsulSessionCreateAction(action.ConsulBaseAction):
             ttl=None,
             dc=None):
 
-        session_id = self.consul.session.create(name=name,
-                                                node=node,
-                                                checks=checks,
-                                                lock_delay=lock_delay,
-                                                behavior=behavior,
-                                                ttl=ttl,
-                                                dc=dc)
-        return session_id
+        return (True, self.consul.session.create(
+            name=name,
+            node=node,
+            checks=checks,
+            lock_delay=lock_delay,
+            behavior=behavior,
+            ttl=ttl,
+            dc=dc))

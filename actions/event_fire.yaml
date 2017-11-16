@@ -1,5 +1,5 @@
 name: event_fire
-runner_type: run-python
+runner_type: python-script
 description: "Send an event to Consul's gossip protocol."
 enabled: true
 entry_point: "event_fire.py"

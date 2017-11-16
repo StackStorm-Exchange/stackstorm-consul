@@ -1,6 +1,6 @@
 name: session_create
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Create a new session."
 enabled: true
 entry_point: "session_create.py"
@@ -33,6 +33,7 @@ parameters:
           - release
           - delete
         description: "This controls the behavior when a session is invalidated."
+        default: "release"
         required: false
         position: 4
     ttl:

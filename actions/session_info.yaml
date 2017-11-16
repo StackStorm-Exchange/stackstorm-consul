@@ -1,6 +1,6 @@
 name: session_info
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Returns a tuple of (index, session) for the session in the dc datacenter."
 enabled: true
 entry_point: "session_info.py"
@@ -16,7 +16,7 @@ parameters:
         required: false
         position: 1
     wait:
-        type: integer
+        type: string
         description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
         default: "15s"
         required: false

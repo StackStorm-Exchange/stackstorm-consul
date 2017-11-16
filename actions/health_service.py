@@ -12,12 +12,12 @@ class ConsulHealthServiceAction(action.ConsulBaseAction):
             near=None,
             token=None):
 
-        index, service = self.consul.health.service(service,
-                                                    index=index,
-                                                    wait=wait,
-                                                    passing=passing,
-                                                    tag=tag,
-                                                    dc=dc,
-                                                    near=near,
-                                                    token=token)
-        return service
+        return (True, self.consul.health.service(
+            service,
+            index=index,
+            wait=wait,
+            passing=passing,
+            tag=tag,
+            dc=dc,
+            near=near,
+            token=token))

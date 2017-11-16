@@ -1,6 +1,6 @@
 name: session_destroy
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Destroy an existing session."
 enabled: true
 entry_point: "session_destroy.py"

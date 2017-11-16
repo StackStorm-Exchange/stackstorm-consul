@@ -1,6 +1,6 @@
 name: session_renew
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Extend the expiration by the TTL for sessions that have a TTL."
 enabled: true
 entry_point: "session_renew.py"

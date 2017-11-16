@@ -9,9 +9,9 @@ class ConsulHealthNodeAction(action.ConsulBaseAction):
             dc=None,
             token=None):
 
-        index, node = self.consul.health.node(node,
-                                              index=index,
-                                              wait=wait,
-                                              dc=dc,
-                                              token=token)
-        return node
+        return (True, self.consul.health.node(
+            node,
+            index=index,
+            wait=wait,
+            dc=dc,
+            token=token))

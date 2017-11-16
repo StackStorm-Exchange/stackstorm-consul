@@ -1,6 +1,6 @@
 name: session_node
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Returns a tuple of (index, session) but filters the sessions returned to only those active for a node."
 enabled: true
 entry_point: "session_node.py"

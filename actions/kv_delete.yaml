@@ -1,6 +1,6 @@
 name: kv_delete
 pack: consul
-runner_type: run-python
+runner_type: python-script
 description: "Deletes a single key or if *recurse* is True, all keys sharing a prefix."
 enabled: true
 entry_point: "kv_delete.py"

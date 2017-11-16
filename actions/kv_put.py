@@ -11,16 +11,18 @@ class ConsulKVPutAction(action.ConsulBaseAction):
             release=None,
             token=None,
             dc=None,
-            to_json):
+            to_json=False):
 
         if to_json:
             value = self.to_json(value)
 
-        return self.consul.kv.put(key,
-                                  value,
-                                  cas=cas,
-                                  flags=flags,
-                                  acquire=acquire,
-                                  release=release,
-                                  token=token,
-                                  dc=dc)
+        return (True, self.consul.kv.put(
+            key,
+            value,
+            cas=cas,
+            flags=flags,
+            acquire=acquire,
+            release=release,
+            token=token,
+            dc=dc
+        ))

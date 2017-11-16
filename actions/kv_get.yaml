@@ -1,5 +1,5 @@
 name: kv_get
-runner_type: run-python
+runner_type: python-script
 description: "Get value from Consul key/value store"
 enabled: true
 entry_point: "kv_get.py"

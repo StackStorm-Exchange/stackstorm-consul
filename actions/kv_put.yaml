@@ -1,5 +1,5 @@
 name: kv_put
-runner_type: run-python
+runner_type: python-script
 description: "Set value in Consul key/value store."
 enabled: true
 entry_point: "kv_put.py"
@@ -8,12 +8,10 @@ parameters:
         type: string
         description: "Key to write in Consul"
         required: true
-        position: 0
     value:
         type: string
         description: "Value of Key to write in Consul"
         required: true
-        position: 1
     cas:
         type: integer
         description: An optional flag is used to turn the PUT into a Check-And-Set operation.
@@ -25,7 +23,7 @@ parameters:
     acquire:
         type: string
         description: An optional session_id to attempt the acquisition of a lock.
-        requried: false
+        required: false
     release:
         type: string
         description: An optional session_id to attempt to release a lock.
@@ -43,4 +41,3 @@ parameters:
         description: "Serialise value to JSON before storing in consul k/v"
         required: false
         default: false
-        position: 2

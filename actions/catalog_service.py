@@ -1,21 +1,26 @@
 from lib import action
 
 
-class ConsulCatalogNodeAction(action.ConsulBaseAction):
+class ConsulCatalogServiceAction(action.ConsulBaseAction):
     def run(
         self,
-        node,
+        service,
         index=None,
         wait=None,
+        tag=None,
         consistency=None,
         dc=None,
+        near=None,
         token=None
     ):
-        return (True, self.consul.catalog.node(
-            node,
+
+        return (True, self.consul.catalog.service(
+            service=service,
             index=index,
             wait=wait,
+            tag=tag,
             consistency=consistency,
             dc=dc,
+            near=near,
             token=token
-            ))
+        ))

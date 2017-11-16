@@ -1,5 +1,5 @@
 name: health_node
-runner_type: run-python
+runner_type: python-script
 description: "Returns the health info of a node"
 enabled: true
 entry_point: "health_node.py"

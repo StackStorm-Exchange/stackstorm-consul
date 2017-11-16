@@ -1,6 +1,6 @@
 name: health_service
 runner_type: python-script
-description: "Query health status of a service in consul"
+description: "Returns the nodes and health info of a service"
 enabled: true
 entry_point: "health_service.py"
 parameters:
