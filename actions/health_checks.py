@@ -1,23 +1,19 @@
 from lib import action
 
 
-class ConsulHealthServiceAction(action.ConsulBaseAction):
+class ConsulHealthChecksAction(action.ConsulBaseAction):
     def run(self,
             service,
             index=None,
             wait=None,
-            passing=None,
-            tag=None,
             dc=None,
             near=None,
             token=None):
 
-        return (True, self.consul.health.service(
+        return (True, self.consul.health.checks(
             service,
             index=index,
             wait=wait,
-            passing=passing,
-            tag=tag,
             dc=dc,
             near=near,
             token=token))

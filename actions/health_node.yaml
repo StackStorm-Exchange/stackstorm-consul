@@ -1,12 +1,12 @@
-name: health_service
+name: health_node
 runner_type: python-script
-description: "Returns the nodes and health info of a service"
+description: "Returns the health info of a node"
 enabled: true
-entry_point: "health_service.py"
+entry_point: "health_node.py"
 parameters:
-    service:
+    node:
         type: string
-        description: "Name of the service to query in Consul."
+        description: "The node providing the given service."
         required: true
     index:
         type: integer
@@ -16,21 +16,9 @@ parameters:
         type: string
         description: "Maximum duration to wait (e.g. '10s') to retrieve a given index."
         required: false
-    passing:
-        type: string
-        description: "Set to True will filter results to only those nodes whose checks are currently passing."
-        required: false
-    tag:
-        type: string
-        description: "Filter the results by tag."
-        required: false
     dc:
         type: string
         description: "The datacenter of the node and defaults to this agents datacenter."
-        required: false
-    near:
-        type: string
-        description: "A node name to sort the resulting list in ascending order based on the estimated round trip time from that node."
         required: false
     token:
         type: string

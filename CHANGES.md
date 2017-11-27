@@ -1,5 +1,33 @@
 # Change Log
 
+## [0.6.0] 16 Nov 2017
+
+### Added the following API calls. (See https://python-consul.readthedocs.io for documentation)
+    - AgentChecks
+    - AgentForce
+    - AgentJoin
+    - AgentMaintenance
+    - AgentMembers
+    - AgentServices
+    - EventFire
+    - EventList
+    - HealthNode
+    - HealthState
+    - ServiceDeregister
+    - ServiceMaintenance
+    - ServiceRegister
+    - SessionCreate
+    - SessionDestroy
+    - SessionInfo
+    - SessionList
+    - SessionNode
+    - SessionRenew
+### Changed
+ - Renamed existing action names to be aligned with the consul API.  This helps logically group
+   operations by the subsystem they will apply to.
+ - Returned unmodified data from Consul API from some existing actions.  Some of the existing actions
+   were masking the metadata returned by the consul API.  This metadata is useful in certain cases.
+
 ## 0.5.0
 
 - Updated action `runner_type` from `run-python` to `python-script`

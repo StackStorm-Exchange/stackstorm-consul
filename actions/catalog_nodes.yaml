@@ -1,0 +1,30 @@
+name: catalog_nodes
+runner_type: python-script
+description: "Return all nodes known about in the *dc* datacenter."
+enabled: true
+entry_point: "catalog_nodes.py"
+parameters:
+    index:
+        type: string
+        description: "The current Consul index, suitable for making subsequent calls to wait for changes since this query was last run."
+        required: false
+    wait:
+        type: string
+        description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
+        required: false
+    consistency:
+        type: string
+        description: "Can be either 'default', 'consistent' or 'stale'."
+        required: false
+    dc:
+        type: string
+        description: "The datacenter to query for nodes."
+        required: false
+    near:
+        type: string
+        description: "A node name to sort the resulting list in ascending order based on the estimated round trip time from that node."
+        required: false
+    token:
+        type: string
+        description: "An optional _ACL token_ to apply to this request."
+        required: false

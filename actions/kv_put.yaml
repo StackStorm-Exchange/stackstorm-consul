@@ -1,0 +1,43 @@
+name: kv_put
+runner_type: python-script
+description: "Set value in Consul key/value store."
+enabled: true
+entry_point: "kv_put.py"
+parameters:
+    key:
+        type: string
+        description: "Key to write in Consul"
+        required: true
+    value:
+        type: string
+        description: "Value of Key to write in Consul"
+        required: true
+    cas:
+        type: integer
+        description: An optional flag is used to turn the PUT into a Check-And-Set operation.
+        required: false
+    flags:
+        type: integer
+        description: Optional unsigned value between 0 and 2^64-1.
+        required: false
+    acquire:
+        type: string
+        description: An optional session_id to attempt the acquisition of a lock.
+        required: false
+    release:
+        type: string
+        description: An optional session_id to attempt to release a lock.
+        required: false
+    token:
+        type: string
+        description: An optional ACL token to apply to this request.
+        required: false
+    dc:
+        type: string
+        description: Optional datacenter that you wish to communicate with.
+        required: false
+    to_json:
+        type: boolean
+        description: "Serialise value to JSON before storing in consul k/v"
+        required: false
+        default: false

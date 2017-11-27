@@ -1,0 +1,15 @@
+name: agent_join
+runner_type: python-script
+description: "Instructs the agent to attempt to connect to a given address."
+enabled: true
+entry_point: "agent_join.py"
+parameters:
+    address:
+        type: string
+        description: "The ip to connect to."
+        required: true
+    wan:
+        type: boolean
+        description: "True: causes the agent to attempt to join using the WAN pool."
+        required: false
+

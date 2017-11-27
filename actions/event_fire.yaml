@@ -1,0 +1,27 @@
+name: event_fire
+runner_type: python-script
+description: "Send an event to Consul's gossip protocol."
+enabled: true
+entry_point: "event_fire.py"
+parameters:
+    name:
+        type: string
+        type: string
+        description: "Key to write in Consul"
+        required: true
+    body:
+        type: string
+        description: "A Consul-opaque body to be delivered with the event.  Small than 100 bytes!"
+        required: true
+    node:
+        type: string
+        description: "A Regex which remote agents will filter against to determine if they should store the event."
+        required: false
+    service:
+        type: string
+        description: "A Regex which remote agents will filter against to determine if they should store the event."
+        required: false
+    tag:
+        type: string
+        description: "A Regex which remote agents will filter against to determine if they should store the event."
+        required: false

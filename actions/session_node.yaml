@@ -1,0 +1,37 @@
+name: session_node
+pack: consul
+runner_type: python-script
+description: "Returns a tuple of (index, session) but filters the sessions returned to only those active for a node."
+enabled: true
+entry_point: "session_node.py"
+parameters:
+    node:
+        type: string
+        description: "The node to use in the filter when listing active sessions."
+        required: true
+        position: 0
+    index:
+        type: array
+        description: "The current Consul index."
+        required: false
+        position: 1
+    wait:
+        type: string
+        description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
+        default: "15s"
+        required: false
+        position: 2
+    consistency:
+        type: string
+        enum:
+          - default
+          - consistent
+          - stale
+        description: "The consistency mode to use reads."
+        required: false
+        position: 3
+    dc:
+        type: string
+        description: "The datacenter that this agent will communicate with."
+        required: false
+        position: 4

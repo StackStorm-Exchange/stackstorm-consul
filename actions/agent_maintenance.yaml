@@ -1,0 +1,17 @@
+name: agent_maintenance
+runner_type: python-script
+description: "Place the agent into _maintenance mode_."
+enabled: true
+entry_point: "agent_maintenance.py"
+parameters:
+    enable:
+        type: boolean
+        description: "True: enables maintenance mode.  False: disables maintenance mode."
+        required: false
+        default: true
+        position: 0
+    reason:
+        type: string
+        description: "An optional string to aid human operators."
+        required: false
+        position: 1

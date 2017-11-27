@@ -1,0 +1,31 @@
+name: catalog_services
+runner_type: python-script
+description: "Returns all services known about in the *dc* datacenter."
+enabled: true
+entry_point: "catalog_services.py"
+parameters:
+    index:
+        type: integer
+        description: "The current Consul index. Used to check for changes since last query was run."
+        required: false
+    wait:
+        type: string
+        description: "Maximum duration to wait (e.g. '10s') to retrieve a given index."
+        required: false
+    consistency:
+        type: string
+        description: "Consul supports 3 different consistency modes for reads. Read Consul's documentation for details."
+        enum:
+        - default
+        - consistent
+        - stale
+        required: false
+    dc:
+        type: string
+        description: "The datacenter that this agent will communicate with."
+        required: false
+    token:
+        type: string
+        description: "An optional ACL token to apply to this request."
+        secret: true
+        required: false
