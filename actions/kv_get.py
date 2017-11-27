@@ -1,5 +1,4 @@
 from lib import action
-import json
 
 
 class ConsulKVGetAction(action.ConsulBaseAction):
@@ -27,7 +26,7 @@ class ConsulKVGetAction(action.ConsulBaseAction):
 
         if from_json and not keys:
             if isinstance(res, dict):
-                    res["Value"] = self.from_json(res["Value"])
+                res["Value"] = self.from_json(res["Value"])
             if isinstance(res, list):
                 for item in res:
                     item["Value"] = self.from_json(item["Value"])

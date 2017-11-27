@@ -2,12 +2,10 @@ from lib import action
 
 
 class ConsulEventListAction(action.ConsulBaseAction):
-    def run(
-        self,
-        name=None,
-        index=None,
-        wait=None
-    ):
+    def run(self,
+            name=None,
+            index=None,
+            wait=None):
 
         if name == "":
             name = None
