@@ -38,6 +38,6 @@ class ConsulBaseAction(Action):
         """
         try:
             value = json.loads(value)
-        except ValueError as ignore_exception:
+        except ValueError:
             pass
         return value
