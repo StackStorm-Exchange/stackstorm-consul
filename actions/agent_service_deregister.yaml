@@ -2,7 +2,7 @@ name: service_deregister
 runner_type: python-script
 description: "Remove a service from the local agent."
 enabled: true
-entry_point: "service_deregister.py"
+entry_point: "agent_service_deregister.py"
 parameters:
     service_id:
         type: string

@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.6.1] 27 Nov 2017
+
+- Linting fixes
+
 ## [0.6.0] 16 Nov 2017
 
 ### Added the following API calls. (See https://python-consul.readthedocs.io for documentation)

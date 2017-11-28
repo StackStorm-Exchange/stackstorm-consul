@@ -1,9 +1,9 @@
+import json
 from st2common import log as logging
 from st2common.runners.base_action import Action
 
 # http://python-consul.readthedocs.org/en/latest/#
 import consul
-import json
 
 
 class ConsulBaseAction(Action):
@@ -38,6 +38,6 @@ class ConsulBaseAction(Action):
         """
         try:
             value = json.loads(value)
-        except ValueError as ignore_exception:
+        except ValueError:
             pass
         return value

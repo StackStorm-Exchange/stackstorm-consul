@@ -2,7 +2,7 @@ name: service_register
 runner_type: python-script
 description: "Add a new service to the local agent."
 enabled: true
-entry_point: "service_register.py"
+entry_point: "agent_service_register.py"
 parameters:
     name:
         type: string

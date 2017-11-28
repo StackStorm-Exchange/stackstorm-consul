@@ -1,6 +1,6 @@
-from lib import action
-
 import json
+
+from lib import action
 
 
 class ConsulAclListAction(action.ConsulBaseAction):
