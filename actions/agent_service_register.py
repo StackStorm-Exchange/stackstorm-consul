@@ -11,7 +11,7 @@ class ConsulServiceRegisterAction(action.ConsulBaseAction):
             check=None,
             token=None,
             enable_tag_override=False):
-        return (True, self.consul.service.register(
+        return (True, self.consul.agent.service.register(
             name=name,
             service_id=service_id,
             address=address,

@@ -2,7 +2,7 @@ name: service_maintenance
 runner_type: python-script
 description: "Put a given service into _maintenance mode_."
 enabled: true
-entry_point: "service_maintenance.py"
+entry_point: "agent_service_maintenance.py"
 parameters:
     service_id:
         type: string
