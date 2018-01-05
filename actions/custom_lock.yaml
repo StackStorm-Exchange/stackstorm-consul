@@ -1,0 +1,52 @@
+name: custom_lock
+runner_type: python-script
+description: "Create a lock or semaphore.  Used for synchronising discret workflows."
+enabled: true
+entry_point: "custom_lock.py"
+parameters:
+    key_prefix:
+        type: string
+        description: KV path to prefix to lock name.
+        required: true
+    max_locks:
+        type: integer
+        description: Maximum number of concurrent holders for the lock.
+        default: 1
+        required: false
+    acquire_timeout:
+        type: integer
+        description: Number of seconds to wait for the lock to be acquired.
+        default: 10
+        required: false
+    name:
+        type: string
+        description: The name of the lock.
+        required: false
+    node:
+        type: string
+        description: The node that will establish and maintain the lock.
+        required: false
+    checks:
+        type: array
+        description: A list of the health checks used to determine if the lock should be invalidated.
+        required: false
+    behavior:
+        type: string
+        enum:
+          - release
+          - delete
+        description: The behavior to use when the lock expires (release or delete).
+        default: release
+        required: false
+    ttl:
+        type: integer
+        description: Time to Live before the lock expires (between 10 and 86400 seconds).
+        required: false
+    token:
+        type: string
+        description: An optional ACL token to apply to this request.
+        required: false
+    dc:
+        type: string
+        description: Optional datacenter that you wish to communicate with.
+        required: false

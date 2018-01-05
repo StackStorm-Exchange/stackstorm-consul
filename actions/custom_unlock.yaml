@@ -1,0 +1,30 @@
+name: custom_unlock
+runner_type: python-script
+description: "Release a lock or semaphore.  Used for synchronising discret workflows."
+enabled: true
+entry_point: "custom_unlock.py"
+parameters:
+    session_id:
+        type: string
+        description: The session id that currently holds the lock on the key.
+        required: true
+    key_prefix:
+        type: string
+        description: KV path to prefix to lock name.
+        required: true
+    name:
+        type: string
+        description: The name of the lock.
+        required: true
+    node:
+        type: string
+        description: The node that will establish and maintain the lock.
+        required: false
+    token:
+        type: string
+        description: An optional ACL token to apply to this request.
+        required: false
+    dc:
+        type: string
+        description: Optional datacenter that you wish to communicate with.
+        required: false
