@@ -26,3 +26,12 @@
     type: "boolean"
     required: false
     default: false
+  consistency:
+    description: "The consistency mode to use by default for all reads that support the consistency option."
+    type: "string"
+    enum:
+      - default
+      - consistent
+      - stale
+    required: false
+    default: "default"
