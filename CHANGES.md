@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.6.2]  8 Jan 2018
+
+### Added
+  - Support for consul consistency mode.
+
+### Changed
+  - Fixed enable/disable for SSL certification verification.
+
 ## [0.6.1] 27 Nov 2017
 
 - Linting fixes
