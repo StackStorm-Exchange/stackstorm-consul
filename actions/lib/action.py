@@ -19,10 +19,8 @@ class ConsulBaseAction(Action):
         port = self.config.get('port')
         token = self.config.get('token')
         scheme = self.config.get('scheme')
-        consistency = self.config.get('consistency') or 'default'
         verify = self.config.get('verify')
-        if verify is None:
-            verify = True
+        consistency = self.config.get('consistency') or 'default'
 
         client = consul.Consul(host, port, token, scheme, consistency, dc, verify)
         return client
