@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.6.3] 25 Jan 2018
+
+### Added
+  - Implementation for basic locking using consul key store/session.
+
+### Changed
+  - Make acl_list return a list instead of a string.
+
 ## [0.6.2]  8 Jan 2018
 
 ### Added
