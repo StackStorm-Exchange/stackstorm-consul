@@ -16,7 +16,7 @@ class ConsulKVPutAction(action.ConsulBaseAction):
         if to_json:
             value = self.to_json(value)
 
-        return (True, self.consul.kv.put(
+        return self.consul.kv.put(
             key,
             value,
             cas=cas,
@@ -25,4 +25,4 @@ class ConsulKVPutAction(action.ConsulBaseAction):
             release=release,
             token=token,
             dc=dc
-        ))
+        )
