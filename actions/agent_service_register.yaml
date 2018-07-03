@@ -25,7 +25,7 @@ parameters:
         description: "Tags."
         required: false
     check:
-        type: string
+        type: object
         description: "An optional health *check* can be created for this service."
         required: false
     token:
