@@ -2,6 +2,6 @@
 ref: consul
 name: consul
 description: consul
-version: 0.6.3
+version: 0.6.4
 author: jfryman
 email: james@fryman.io
