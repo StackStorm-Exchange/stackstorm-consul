@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.6.5] 16 Jul 2018
+
+### Changed
+  - Update agent_service_register `tags` to be an array.
+  
 ## [0.6.4] 16 Jul 2018
 
 ### Changed
