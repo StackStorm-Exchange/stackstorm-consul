@@ -1,5 +1,10 @@
 # Change Log
 
+## [0.6.4] 16 Jul 2018
+
+### Changed
+  - Update agent_service_register `check` to be an object.
+  
 ## [0.6.3] 25 Jan 2018
 
 ### Added
