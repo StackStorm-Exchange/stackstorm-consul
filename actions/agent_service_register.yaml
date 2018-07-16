@@ -21,7 +21,7 @@ parameters:
         description: "Port."
         required: false
     tags:
-        type: string
+        type: array
         description: "Tags."
         required: false
     check:
