@@ -20,7 +20,6 @@ class ConsulBaseAction(Action):
         # Delay the creation of the Consul client to be able to read the consul profile to use.
         self.consul = None
 
-
     def _get_pack_configuration(self, profile=None):
         """
         Fetch the variables from the pack configuration.
