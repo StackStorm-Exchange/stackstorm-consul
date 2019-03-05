@@ -1,7 +1,7 @@
 from lib import action
 
 
-class ConsulAclCreateAction(action.ConsulBaseAction):
+class ConsulAclUpdateAction(action.ConsulBaseAction):
     def run(
         self,
         consul_profile=None,
@@ -21,11 +21,11 @@ class ConsulAclCreateAction(action.ConsulBaseAction):
         rules = rules.encode("ascii", "ignore")
         return (
             True,
-            self.consul.acl.create(
+            self.consul.acl.update(
+                acl_id,
                 name=name,
                 type=acl_type,
                 rules=rules,
-                acl_id=acl_id,
                 token=token
             )
         )

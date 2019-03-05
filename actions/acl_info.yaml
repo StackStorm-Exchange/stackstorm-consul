@@ -1,15 +1,14 @@
-name: acl_destroy
+name: acl_info
 pack: consul
 runner_type: python-script
-description: "Destroys the ACL token 'acl_id'"
+description: "Returns the token information for 'acl_id'."
 enabled: true
-entry_point: "acl_destroy.py"
+entry_point: "acl_info.py"
 parameters:
     acl_id:
         type: string
-        description: "Token to destroy"
+        description: Fetch information for 'acl_id'.
         required: true
-        position: 0
     token:
         type: string
         description: An ACL token to use instead of the agent token.

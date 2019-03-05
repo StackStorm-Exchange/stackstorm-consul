@@ -18,11 +18,17 @@ parameters:
         type: integer
         description: An optional flag is used to turn the DELETE into a Check-And-Set operation.
         required: false
-    token:
-        type: string
-        description: An optional ACL token to apply to this request.
-        required: false
     dc:
         type: string
         description: Optional datacenter that you wish to communicate with.
+        required: false
+    token:
+        type: string
+        description: "An ACL token to use instead of the agent token."
+        required: false
+        secret: true
+        default: ""
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
         required: false

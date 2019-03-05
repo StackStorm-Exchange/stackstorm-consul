@@ -36,3 +36,13 @@ parameters:
         description: "An optional ACL token to apply to this request."
         secret: true
         required: false
+        default: ""
+    node_meta:
+        type: object
+        description: "An optional meta data used for filtering."
+        required: false
+        default: {}
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false

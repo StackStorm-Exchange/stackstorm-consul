@@ -1,20 +1,19 @@
-name: acl_destroy
+name: acl_clone
 pack: consul
 runner_type: python-script
-description: "Destroys the ACL token 'acl_id'"
+description: "Clones the ACL token 'acl_id'."
 enabled: true
-entry_point: "acl_destroy.py"
+entry_point: "acl_clone.py"
 parameters:
     acl_id:
         type: string
-        description: "Token to destroy"
+        description: "'acl_id' to clone."
         required: true
-        position: 0
     token:
         type: string
-        description: An ACL token to use instead of the agent token.
-        secret: true
+        description: "An ACL token to use instead of the agent token."
         required: false
+        secret: true
         default: ""
     consul_profile:
         type: string

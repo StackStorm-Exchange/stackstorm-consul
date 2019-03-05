@@ -1,15 +1,15 @@
-name: acl_create
+name: acl_update
 pack: consul
 runner_type: python-script
-description: "Creates a new ACL token."
+description: "Updates the ACL token 'acl_id'."
 enabled: true
-entry_point: "acl_create.py"
+entry_point: "acl_update.py"
 parameters:
     name:
         type: string
         description: "Name of token"
         required: true
-        position: 0
+        position: 1
     acl_type:
         type: string
         enum:
@@ -18,7 +18,7 @@ parameters:
         default: client
         description: "Type of token"
         required: true
-        position: 1
+        position: 0
     rules:
         type: string
         description: "HCL rules"
@@ -37,5 +37,5 @@ parameters:
         default: ""
     acl_id:
         type: string
-        description: "Consul Policy ID to apply to the token"
-        required: false
+        description: "Consul Policy ID to update."
+        required: true
