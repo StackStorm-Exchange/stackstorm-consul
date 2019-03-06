@@ -1,6 +1,5 @@
 ----
 consul_profiles:
-  -
     production:
       ca_cert_path: /etc/ssl/certs/ca.pem
       client_cert_path: /etc/ssl/certs/client-cert.pem
@@ -11,7 +10,6 @@ consul_profiles:
       scheme: https
       token: 11111111-bbbb-aaaa-cccc-222222222222
       verify: true
-  -
     dev:
       ca_cert_path: /etc/ssl/certs/dev-ca.pem
       client_cert_path: /etc/ssl/certs/dev-client-cert.pem
