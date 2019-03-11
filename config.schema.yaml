@@ -5,12 +5,17 @@ default_profile:
   required: true
 consul_profiles:
   description: "Consul cluster profiles"
-  type: "object"
+  type: "array"
   required: true
   items:
     type: "object"
     required: true
+    additionalProperties: false
     properties:
+      name:
+        description: "Name of the consul profile."
+        type: "string"
+        required: true
       host:
         description: "Consul server IP/name.  Default 127.0.0.1"
         type: "string"
@@ -52,6 +57,11 @@ consul_profiles:
         description: "Client private key for HTTPS request"
         type: "string"
         required: false
+      preserve_varenv:
+        description: "Enable preservation of environment variables.  If disable, all CONSUL_* environment variables are deleted from the action execution."
+        type: boolean
+        requried: false
+        default: true
       consistency:
         description: "The consistency mode to use by default for all reads that support the consistency option."
         type: "string"

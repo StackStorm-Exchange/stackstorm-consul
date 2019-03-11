@@ -24,33 +24,47 @@ class ConsulBaseAction(Action):
         """
         Fetch the variables from the pack configuration.
         """
-        for env_key in os.environ:
-            if "CONSUL" in env_key:
-                print("{}={}".format(env_key, os.environ[env_key]))
-                del os.environ[env_key]
-        profile = self.config["consul_profiles"].get(profile, None)
-        if profile is None:
-            raise ValueError("A valid Consul profile must be supplied.")
-        self.dc = profile.get("dc")
-        self.host = profile.get("host")
-        self.port = profile.get("port")
-        self.token = profile.get("token")
-        self.scheme = profile.get("scheme")
-        self.client_cert_path = profile.get("client_cert_path")
-        self.client_key_path = profile.get("client_key_path")
-        self.cert = (self.client_cert_path, self.client_key_path)
-        self.verify = profile.get("verify")
-        self.ca_cert_path = profile.get("ca_cert_path", "")
-        # Python Requests supports boolean or a file path for the verify agrument.
-        if self.ca_cert_path != "":
-            self.verify = self.ca_cert_path
-        self.consistency = profile.get("consistency", "default")
+        if self.config.get("preserve_varenv", True):
+            for env_key in os.environ:
+                if "CONSUL" in env_key:
+                    print("{}={}".format(env_key, os.environ[env_key]))
+                    del os.environ[env_key]
 
-    def _create_client(self, profile=None):
+        self._get_profile(profile)
+
+    def _get_profile(self, profile=None):
         # Attempt to get the default profile from the config if the action didn't supply one.
         if profile is None:
-            profile = self.config.get("default_profile", None)
+            profile = self.config.get("default_profile")
 
+        requested_profile = None
+        for p in self.config.get("consul_profiles", []):
+            if p.get("name", "_") == profile:
+                requested_profile = p
+                break
+
+        if requested_profile is None:
+            raise ValueError(
+                "A valid Consul profile must be supplied, '{}' profile.".format(profile)
+            )
+
+        self.dc = requested_profile.get("dc")
+        self.host = requested_profile.get("host")
+        self.port = requested_profile.get("port")
+        self.token = requested_profile.get("token")
+        self.scheme = requested_profile.get("scheme")
+        self.client_cert_path = requested_profile.get("client_cert_path")
+        self.client_key_path = requested_profile.get("client_key_path")
+        self.cert = (self.client_cert_path, self.client_key_path)
+        self.verify = requested_profile.get("verify")
+        self.ca_cert_path = requested_profile.get("ca_cert_path", "")
+        # Python Requests supports boolean or a file path for the verify agrument, ca_cert_path is
+        # used to decide which data type the pack send to the requests module.
+        if self.ca_cert_path != "":
+            self.verify = self.ca_cert_path
+        self.consistency = requested_profile.get("consistency", "default")
+
+    def _create_client(self, profile=None):
         self._get_pack_configuration(profile)
 
         self.consul = consul.Consul(
