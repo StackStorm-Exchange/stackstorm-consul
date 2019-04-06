@@ -1,27 +1,27 @@
-----
+---
 consul_profiles:
-    -
-      name: production
-      ca_cert_path: /etc/ssl/certs/ca.pem
-      client_cert_path: /etc/ssl/certs/client-cert.pem
-      client_key_path: /etc/ssl/private/client-key.pem
-      consistency: default
-      host: 127.0.0.1
-      port: 8500
-      scheme: https
-      token: 11111111-bbbb-aaaa-cccc-222222222222
-      verify: true
-      preserve_varenv: false
-    -
-      name: dev
-      ca_cert_path: /etc/ssl/certs/dev-ca.pem
-      client_cert_path: /etc/ssl/certs/dev-client-cert.pem
-      client_key_path: /etc/ssl/private/dev-client-key.pem
-      consistency: default
-      host: 10.11.12.13
-      port: 8500
-      scheme: https
-      token: 22222222-bbbb-aaaa-cccc-444444444444
-      verify: false
-      preserve_varenv: false
+  -
+    name: production
+    ca_cert_path: /etc/ssl/certs/ca.pem
+    client_cert_path: /etc/ssl/certs/client-cert.pem
+    client_key_path: /etc/ssl/private/client-key.pem
+    consistency: default
+    host: 127.0.0.1
+    port: 8500
+    scheme: https
+    token: 11111111-bbbb-aaaa-cccc-222222222222
+    verify: true
+    preserve_varenv: false
+  -
+    name: dev
+    ca_cert_path: /etc/ssl/certs/dev-ca.pem
+    client_cert_path: /etc/ssl/certs/dev-client-cert.pem
+    client_key_path: /etc/ssl/private/dev-client-key.pem
+    consistency: default
+    host: 10.11.12.13
+    port: 8500
+    scheme: https
+    token: 22222222-bbbb-aaaa-cccc-444444444444
+    verify: false
+    preserve_varenv: false
 default_profile: production
