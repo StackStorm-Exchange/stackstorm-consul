@@ -1,15 +1,35 @@
 # Change Log
 
+## [0.6.6] 16 Feb 2019
+
+### Added
+  - Pack supports client key/certificate and CA certificate parameters. issue #22
+  - Pack supports consul profiles.  issue #23
+  - New Actions
+    - ACLInfo
+    - ACLUpdate
+    - ACLClone
+
+### Changed
+  - Fixed destory_session method to return the result.
+  - Updated all actions to support ACL Tokens.
+  - Require python-consul v1.1.0
+  - Changed Actions
+    - All actions take a consul_profile parameter.  If no profile is provided the action uses consul_default as defined in the pack configuration.
+    - CatalogDeregister takes check_id and token.
+    - CatalogServices takes node_meta.
+    - CatalogNodes takes node_meta.
+    
 ## [0.6.5] 16 Jul 2018
 
 ### Changed
   - Update agent_service_register `tags` to be an array.
-  
+
 ## [0.6.4] 16 Jul 2018
 
 ### Changed
   - Update agent_service_register `check` to be an object.
-  
+
 ## [0.6.3] 25 Jan 2018
 
 ### Added
@@ -52,6 +72,7 @@
     - SessionList
     - SessionNode
     - SessionRenew
+
 ### Changed
  - Renamed existing action names to be aligned with the consul API.  This helps logically group
    operations by the subsystem they will apply to.

@@ -1,37 +1,74 @@
 ---
-  host:
-    description: "Consul server IP/name.  Default 127.0.0.1"
-    type: "string"
-    secret: false
+default_profile:
+  description: "The default consul profile to use in actions when none is given."
+  type: string
+  required: true
+consul_profiles:
+  description: "Consul cluster profiles"
+  type: "array"
+  required: true
+  items:
+    type: "object"
     required: true
-    default: "127.0.0.1"
-  port:
-    description: "Consul server port. Default 8500"
-    type: "integer"
-    secret: false
-    required: true
-    default: 8500
-  token:
-    description: "Consul API token"
-    type: "string"
-    secret: true
-    required: true
-  scheme:
-    description: "Consul scheme to use. Default http"
-    type: "string"
-    required: false
-    default: "http"
-  verify:
-    description: "Verify the SSL certificate for HTTPS requests. Default false"
-    type: "boolean"
-    required: false
-    default: false
-  consistency:
-    description: "The consistency mode to use by default for all reads that support the consistency option."
-    type: "string"
-    enum:
-      - default
-      - consistent
-      - stale
-    required: false
-    default: "default"
+    additionalProperties: false
+    properties:
+      name:
+        description: "Name of the consul profile."
+        type: "string"
+        required: true
+      host:
+        description: "Consul server IP/name.  Default 127.0.0.1"
+        type: "string"
+        secret: false
+        required: true
+        default: "127.0.0.1"
+      port:
+        description: "Consul server port. Default 8500"
+        type: "integer"
+        secret: false
+        required: true
+        default: 8500
+      token:
+        description: "Consul API token"
+        type: "string"
+        secret: true
+        required: true
+        default: ""
+      scheme:
+        description: "Consul scheme to use. Default http"
+        type: "string"
+        required: false
+        default: "http"
+      verify:
+        description: "Verify the SSL certificate for HTTPS requests. Default false (this option is ignored if ca_cert_path is supplied)."
+        type: "boolean"
+        required: false
+        default: false
+      ca_cert_path:
+        description: "CA Certificate path. Defaults to empty string. When path is provided, SSL certificates are verified."
+        type: "string"
+        required: false
+        default: ""
+      client_cert_path:
+        description: "Client side certificates for HTTPS request"
+        type: "string"
+        required: false
+      client_key_path:
+        description: "Client private key for HTTPS request"
+        type: "string"
+        required: false
+      preserve_varenv:
+        description: "Enable preservation of environment variables.  If disable, all CONSUL_* environment variables are deleted from the action execution."
+        type: boolean
+        requried: false
+        default: true
+      consistency:
+        description: "The consistency mode to use by default for all reads that support the consistency option."
+        type: "string"
+        enum:
+          - default
+          - consistent
+          - stale
+        required: false
+        default: "default"
+

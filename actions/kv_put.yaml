@@ -30,8 +30,10 @@ parameters:
         required: false
     token:
         type: string
-        description: An optional ACL token to apply to this request.
+        description: "An ACL token to use instead of the agent token."
         required: false
+        secret: true
+        default: ""
     dc:
         type: string
         description: Optional datacenter that you wish to communicate with.
@@ -41,3 +43,7 @@ parameters:
         description: "Serialise value to JSON before storing in consul k/v"
         required: false
         default: false
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false

@@ -2,6 +2,7 @@ import six
 import json
 import random
 import time
+import os
 
 from st2common import log as logging
 from st2common.runners.base_action import Action
@@ -16,25 +17,72 @@ class ConsulBaseAction(Action):
 
     def __init__(self, config):
         super(ConsulBaseAction, self).__init__(config)
-        self.consul = self._get_client()
+        # Delay the creation of the Consul client to be able to read the consul profile to use.
+        self.consul = None
 
-    def _get_client(self):
-        dc = self.config.get('dc')
-        host = self.config.get('host')
-        port = self.config.get('port')
-        token = self.config.get('token')
-        scheme = self.config.get('scheme')
-        verify = self.config.get('verify')
-        consistency = self.config.get('consistency') or 'default'
+    def _get_pack_configuration(self, profile=None):
+        """
+        Fetch the variables from the pack configuration.
+        """
+        if self.config.get("preserve_varenv", True):
+            for env_key in os.environ:
+                if "CONSUL" in env_key:
+                    print("{}={}".format(env_key, os.environ[env_key]))
+                    del os.environ[env_key]
 
-        client = consul.Consul(host, port, token, scheme, consistency, dc, verify)
-        return client
+        self._get_profile(profile)
+
+    def _get_profile(self, profile=None):
+        # Attempt to get the default profile from the config if the action didn't supply one.
+        if profile is None:
+            profile = self.config.get("default_profile")
+
+        requested_profile = None
+        for p in self.config.get("consul_profiles", []):
+            if p.get("name", "_") == profile:
+                requested_profile = p
+                break
+
+        if requested_profile is None:
+            raise ValueError(
+                "A valid Consul profile must be supplied, '{}' profile.".format(profile)
+            )
+
+        self.dc = requested_profile.get("dc")
+        self.host = requested_profile.get("host")
+        self.port = requested_profile.get("port")
+        self.token = requested_profile.get("token")
+        self.scheme = requested_profile.get("scheme")
+        self.client_cert_path = requested_profile.get("client_cert_path")
+        self.client_key_path = requested_profile.get("client_key_path")
+        self.cert = (self.client_cert_path, self.client_key_path)
+        self.verify = requested_profile.get("verify")
+        self.ca_cert_path = requested_profile.get("ca_cert_path", "")
+        # Python Requests supports boolean or a file path for the verify agrument, ca_cert_path is
+        # used to decide which data type the pack send to the requests module.
+        if self.ca_cert_path != "":
+            self.verify = self.ca_cert_path
+        self.consistency = requested_profile.get("consistency", "default")
+
+    def _create_client(self, profile=None):
+        self._get_pack_configuration(profile)
+
+        self.consul = consul.Consul(
+            self.host,
+            self.port,
+            self.token,
+            self.scheme,
+            self.consistency,
+            self.dc,
+            self.verify,
+            self.cert
+        )
 
     def to_json(self, value):
         """
         Unescape StackStorm string and push as a json serialised object into consul.
         """
-        return json.dumps(json.loads(value.decode('string_escape')))
+        return json.dumps(json.loads(value.decode("string_escape")))
 
     def from_json(self, value):
         """
@@ -78,14 +126,14 @@ class LockManager(object):
         if self.max_locks > 1:
             result = self.create_semaphore()
         else:
-            result = self.create_lock("/".join([self.key_prefix, self.name, '.lock']))
+            result = self.create_lock("/".join([self.key_prefix, self.name, ".lock"]))
         return result
 
     def unlock(self, session_id):
         """
         Method called by the Unlock action.
         """
-        key = "/".join([self.key_prefix, self.name, '.lock'])
+        key = "/".join([self.key_prefix, self.name, ".lock"])
         return self.release_lock(key, session_id)
 
     def create_semaphore(self):
@@ -110,7 +158,7 @@ class LockManager(object):
         return result
 
     def destroy_session(self, session_id):
-        self.client.session.destroy(session_id, self.dc)
+        return self.client.session.destroy(session_id, self.dc)
 
     def create_lock(self, key_name):
         result = (False, "")

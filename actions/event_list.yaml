@@ -17,3 +17,7 @@ parameters:
         type: string
         description: "The maximum duration to wait (e.g. '10s') to retrieve a given index."
         required: false
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false

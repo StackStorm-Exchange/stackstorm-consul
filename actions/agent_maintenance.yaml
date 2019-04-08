@@ -1,6 +1,6 @@
 name: agent_maintenance
 runner_type: python-script
-description: "Place the agent into _maintenance mode_."
+description: "Place the agent into 'maintenance mode'."
 enabled: true
 entry_point: "agent_maintenance.py"
 parameters:
@@ -15,3 +15,8 @@ parameters:
         description: "An optional string to aid human operators."
         required: false
         position: 1
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false
+

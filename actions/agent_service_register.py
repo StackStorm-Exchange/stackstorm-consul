@@ -10,7 +10,9 @@ class ConsulServiceRegisterAction(action.ConsulBaseAction):
             tags=None,
             check=None,
             token=None,
-            enable_tag_override=False):
+            enable_tag_override=False,
+            consul_profile=None):
+        self._create_client(consul_profile)
         return (True, self.consul.agent.service.register(
             name=name,
             service_id=service_id,

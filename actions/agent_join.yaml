@@ -12,4 +12,7 @@ parameters:
         type: boolean
         description: "True: causes the agent to attempt to join using the WAN pool."
         required: false
-
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false

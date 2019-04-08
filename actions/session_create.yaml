@@ -46,4 +46,7 @@ parameters:
         description: "The datacenter that this agent will communicate with."
         required: false
         position: 6
-
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false

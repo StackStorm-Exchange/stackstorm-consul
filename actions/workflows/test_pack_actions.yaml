@@ -1,0 +1,353 @@
+version: 1.0
+
+description: A basic workflow that runs an arbitrary linux command.
+
+input:
+  - consul_profile
+
+tasks:
+    test_acl_create:
+        action: consul.acl_create
+        input:
+            name: test_name
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            -
+                publish:
+                    - acl_id: <% result().result %>
+                do: test_acl_info
+
+    test_acl_info:
+        action: consul.acl_info
+        input:
+            acl_id: <% ctx(acl_id) %>
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_acl_clone
+
+    test_acl_clone:
+        action: consul.acl_clone
+        input:
+            acl_id: <% ctx(acl_id) %>
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            -
+                publish:
+                    - cloned_acl_id: <% result().result %>
+                do: test_acl_update
+
+    test_acl_update:
+        action: consul.acl_update
+        input:
+            name: test_name2
+            acl_id: <% ctx(acl_id) %>
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_acl_destroy
+
+    test_acl_destroy:
+        action: consul.acl_destroy
+        input:
+            acl_id: <% ctx(acl_id) %>
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_acl_destroy_clone
+
+    test_acl_destroy_clone:
+        action: consul.acl_destroy
+        input:
+            acl_id: <% ctx(cloned_acl_id) %>
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_acl_list
+
+    test_acl_list:
+        action: consul.acl_list
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_checks
+
+    test_agent_checks:
+        action: consul.agent_checks
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_force_leave
+
+    test_agent_force_leave:
+        action: consul.agent_force_leave
+        input:
+            node: test_node
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_join
+
+    test_agent_join:
+        action: consul.agent_join
+        input:
+            address: 127.0.0.1
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_maintenance
+
+    test_agent_maintenance:
+        action: consul.agent_maintenance
+        input:
+            enable: true
+            reason: test_maintenance
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_members
+
+    test_agent_members:
+        action: consul.agent_members
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_service_register
+
+    test_agent_service_register:
+        action: consul.service_register
+        input:
+            name: test_service
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_enable_service_maintenance
+
+    test_agent_enable_service_maintenance:
+        action: consul.service_maintenance
+        input:
+            service_id: test_service
+            enable: true
+            reason: test_service_maintenance
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_disable_service_maintenance
+
+    test_agent_disable_service_maintenance:
+        action: consul.service_maintenance
+        input:
+            service_id: test_service
+            enable: false
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_service_deregister
+
+    test_agent_service_deregister:
+        action: consul.service_deregister
+        input:
+            service_id: test_service
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_agent_services
+
+
+    test_agent_services:
+        action: consul.agent_services
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_catalog_datacenters
+
+    test_catalog_datacenters:
+        action: consul.catalog_datacenters
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_catalog_deregister
+
+    test_catalog_deregister:
+        action: consul.catalog_deregister
+        input:
+            node: test_node
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_catalog_node
+
+    test_catalog_node:
+        action: consul.catalog_node
+        input:
+            node: test_node
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_catalog_nodes
+
+    test_catalog_nodes:
+        action: consul.catalog_nodes
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_catalog_register
+
+    test_catalog_register:
+        action: consul.catalog_register
+        input:
+            node: test_node
+            address: 127.0.0.1
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_catalog_service
+
+    test_catalog_service:
+        action: consul.catalog_service
+        input:
+            service: test_service
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_catalog_services
+
+    test_catalog_services:
+        action: consul.catalog_services
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_custom_lock
+
+    test_custom_lock:
+        action: consul.custom_lock
+        input:
+            key_prefix: test_key_prefix
+            name: test_lock
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_custom_unlock
+
+    test_custom_unlock:
+        action: consul.custom_unlock
+        input:
+            session_id: test_session_id
+            key_prefix: test_key_prefix
+            name: test_lock
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_event_fire
+
+    test_event_fire:
+        action: consul.event_fire
+        input:
+            name: test_name
+            body: "{}"
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_event_list
+
+    test_event_list:
+        action: consul.event_list
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_health_checks
+
+    test_health_checks:
+        action: consul.health_checks
+        input:
+            service: test_service
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_health_node
+
+    test_health_node:
+        action: consul.health_node
+        input:
+            node: test_node
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_health_service
+
+    test_health_service:
+        action: consul.health_service
+        input:
+            service: test_service
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_health_state
+
+    test_health_state:
+        action: consul.health_state
+        input:
+            name: any
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_kv_delete
+
+    test_kv_delete:
+        action: consul.kv_delete
+        input:
+            key: test_key
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_kv_get
+
+    test_kv_get:
+        action: consul.kv_get
+        input:
+            key: test_key
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_kv_list
+
+    test_kv_list:
+        action: consul.kv_list
+        input:
+            key: test_key
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_kv_put
+
+    test_kv_put:
+        action: consul.kv_put
+        input:
+            key: test_key
+            value: test_value
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_session_create
+
+    test_session_create:
+        action: consul.session_create
+        input:
+            name: test_session
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            -
+                publish:
+                    - session_id: <% result().result %>
+                do: test_session_info
+
+    test_session_info:
+        action: consul.session_info
+        input:
+            session_id: <% ctx(session_id) %>
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_session_list
+
+    test_session_list:
+        action: consul.session_list
+        input:
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_session_node
+
+    test_session_node:
+        action: consul.session_node
+        input:
+            node: test_node
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_session_renew
+
+    test_session_renew:
+        action: consul.session_renew
+        input:
+            session_id: <% ctx(session_id) %>
+            consul_profile: <% ctx(consul_profile) %>
+        next:
+            - do: test_session_destroy
+
+    test_session_destroy:
+        action: consul.session_destroy
+        input:
+            session_id: <% ctx(session_id) %>
+            consul_profile: <% ctx(consul_profile) %>

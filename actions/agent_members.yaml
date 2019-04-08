@@ -8,3 +8,7 @@ parameters:
         type: boolean
         description: "Returns the list of WAN members instead of the LAN members."
         required: false
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false

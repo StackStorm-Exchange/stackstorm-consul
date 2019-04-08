@@ -4,6 +4,16 @@ description: "Returns the nodes providing *service* in the *dc* datacenter."
 enabled: true
 entry_point: "catalog_service.py"
 parameters:
+    token:
+        type: string
+        description: An ACL token to use instead of the agent token.
+        required: false
+        secret: true
+        default: ""
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
+        required: false
     service:
         type: string
         description: "The service to query for nodes."
@@ -31,8 +41,4 @@ parameters:
     near:
         type: string
         description: "A node name to sort the resulting list in ascending order based on the estimated round trip time from that node."
-        required: false
-    token:
-        type: string
-        description: "An optional _ACL token_ to apply to this request."
         required: false

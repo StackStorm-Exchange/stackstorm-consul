@@ -30,10 +30,16 @@ parameters:
         required: false
     token:
         type: string
+        secret: true
         description: "An optional _ACL token_ to apply to this request."
         required: false
+        default: ""
     enable_tag_override:
         type: boolean
         description: "An optional bool that enable you to modify a service tags from servers(consul agent role server)"
         default: false
+        required: false
+    consul_profile:
+        type: string
+        description: "Consul profile to use to run the action."
         required: false
