@@ -1,5 +1,11 @@
 # Change Log
 
+## [0.6.7] 18 Jun 2019
+
+### Added
+  - Add README documentation
+  - Properly increment pack.yaml version
+
 ## [0.6.6] 16 Feb 2019
 
 ### Added
