@@ -158,7 +158,7 @@ class LockManager(object):
         return result
 
     def destroy_session(self, session_id):
-        return self.client.session.destroy(session_id, self.dc)
+        return self.client.session.destroy(session_id, dc=self.dc, token=self.token)
 
     def create_lock(self, key_name):
         result = (False, "")
@@ -184,7 +184,8 @@ class LockManager(object):
             lock_delay=5,
             behavior=self.behavior,
             ttl=self.ttl,
-            dc=self.dc
+            dc=self.dc,
+            token=self.token
         )
 
     def acquire_lock(self, session_id, key, cas=None, value=""):

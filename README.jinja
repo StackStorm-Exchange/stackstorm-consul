@@ -1,0 +1,124 @@
+[![Build Status](https://circleci.com/gh/StackStorm-Exchange/stackstorm-consul.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/StackStorm-Exchange/stackstorm-consul) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+# {{ pack["pack.yaml"].name }} integration pack v{{ pack["pack.yaml"].version }}
+
+> {{ pack["pack.yaml"].description }}
+{{ pack["pack.yaml"].author }} <{{ pack["pack.yaml"].email }}>
+
+[HashiCorp Consul](https://www.consul.io/)
+
+# <a name="QuickStart"></a> Quick Start
+
+Install the pack
+
+``` shell
+st2 pack install consul
+```
+
+# <a name="Configuration"></a> Configuration
+The configuration for this pack is used to specify connection information for all Consul servers you'll be communicating with. The location for the config file is `/opt/stackstorm/configs/consul.yaml`. An example configuration located in the repo named [consul.yaml.example](./consul.yaml.example) can be copied to `/opt/stackstorm/configs/consul.yaml` and edited as required.
+
+It should contain:
+
+* `default_profile` - URL for the Vault server
+* `consul_profiles` - Mapping of name to an object containing Consul profile settings
+  * `name` - Name of the consul profile
+  * `host` - Consul server IP/name.  Default 127.0.0.1
+  * `port` - Consul server port. Default 8500
+  * `token` - Consul API token
+  * `scheme` - Consul scheme to use. Default http
+  * `verify` - Verify the SSL certificate for HTTPS requests. Default false (this option is ignored if ca_cert_path is supplied)
+  * `ca_cert_path` - CA Certificate path. Defaults to empty string. When path is provided, SSL certificates are verified
+  * `client_cert_path` - Client side certificates for HTTPS request
+  * `client_key_path` - Client private key for HTTPS request
+  * `preserve_varenv` - Enable preservation of environment variables.  If disable, all CONSUL_* environment variables are deleted from the action execution
+  * `consistency` - The consistency mode to use by default for all reads that support the consistency option
+
+**Note** : When modifying the configuration in `/opt/stackstorm/configs/` please
+           remember to tell StackStorm to load these new values by running
+           `st2ctl reload --register-configs`
+
+## <a name="SchemaExample"></a> Schema Examples
+
+``` yaml
+---
+consul_profiles:
+  -
+    name: production
+    ca_cert_path: /etc/ssl/certs/ca.pem
+    client_cert_path: /etc/ssl/certs/client-cert.pem
+    client_key_path: /etc/ssl/private/client-key.pem
+    consistency: default
+    host: 127.0.0.1
+    port: 8500
+    scheme: https
+    token: 11111111-bbbb-aaaa-cccc-222222222222
+    verify: true
+    preserve_varenv: false
+  -
+    name: dev
+    ca_cert_path: /etc/ssl/certs/dev-ca.pem
+    client_cert_path: /etc/ssl/certs/dev-client-cert.pem
+    client_key_path: /etc/ssl/private/dev-client-key.pem
+    consistency: default
+    host: 10.11.12.13
+    port: 8500
+    scheme: https
+    token: 22222222-bbbb-aaaa-cccc-444444444444
+    verify: false
+    preserve_varenv: false
+default_profile: production
+```
+
+
+## Configuration
+
+The following options are required to be configured for the pack to work correctly.
+
+| Option | Type | Required | Secret | Description |
+|---|---|---|---|---|
+{% for key, value in pack["config.schema.yaml"].items() -%}
+| `{{ key }}` | {{ value.type }} | {{ value.required }} | {{ value.secret }} | {{ value.description }} |
+{% endfor %}
+
+## Actions
+
+{% if actions | length > 0 %}
+The pack provides the following actions:
+
+{% for key, value in actions.items() -%}
+### {{ value.name }}
+_{{ value.description }}_
+
+| Parameter | Type | Required | Secret | Description |
+|---|---|---|---|---|
+{% for p_key, p_value in value.parameters.items() -%}
+| `{{ p_key }}` | {{ p_value.type | default("n/a") }} | {{ p_value.required | default("default") }} | {{ p_value.secret | default("default") }} | _{{ p_value.description | default("Unavailable") }}_ |
+{% endfor -%}
+
+
+{% endfor %}
+{% else %}
+There are no actions available for this pack.
+{% endif %}
+
+## Sensors
+{% if sensors | length > 0 %}
+The following sensors and triggers are provided:
+{% for key, value in sensors.items() %}
+### Class {{ value.class_name }}
+_{{ value.description }}_
+
+{% for trigger in value.trigger_types -%}
+| Trigger Name | Description |
+|---|---|
+| `{{ trigger.name }}` | _{{ trigger.description | default("Unavailable") }}_ |
+{% endfor %}
+
+
+{% endfor %}
+{% else %}
+There are no sensors available for this pack.
+{% endif %}
+
+<sub>Documentation generated using [pack2md](https://github.com/nzlosh/pack2md)</sub>
