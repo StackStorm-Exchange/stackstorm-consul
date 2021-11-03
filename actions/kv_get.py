@@ -36,9 +36,9 @@ class ConsulKVGetAction(action.ConsulBaseAction):
 
         if from_json and not keys:
             if isinstance(res, dict):
-                res["Value"] = self.from_json(res["Value"])
+                res["Value"] = self.from_json(res["Value"].decode('utf-8'))
             if isinstance(res, list):
                 for item in res:
-                    item["Value"] = self.from_json(item["Value"])
+                    item["Value"] = self.from_json(item["Value"].decode('utf-8'))
 
         return (True, [idx, res])
