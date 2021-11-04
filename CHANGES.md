@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.0.0] 03 Nov 2021
+### Changed
+* Changed underlying consul library from `python-consul` which is no longer maintained to `python-consul2` which is maintained.
+* Certain Python3 libraries return byte strings.  We need to decode them in order to correctly json-ify them.
+
 ## [1.0.0] 05 Feb 2021
 
 * Drop Python 2.7 support
