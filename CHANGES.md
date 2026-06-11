@@ -1,5 +1,10 @@
 # Change Log
 
+## [2.0.1] 11 Jun 2026
+### Changed
+* fixed config typo
+* added pylint ignore
+
 ## [2.0.0] 03 Nov 2021
 ### Changed
 * Changed underlying consul library from `python-consul` which is no longer maintained to `python-consul2` which is maintained.
