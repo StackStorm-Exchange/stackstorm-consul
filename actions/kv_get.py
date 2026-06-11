@@ -1,3 +1,4 @@
+# pylint: disable=E1101
 from __future__ import absolute_import
 from lib import action
 
